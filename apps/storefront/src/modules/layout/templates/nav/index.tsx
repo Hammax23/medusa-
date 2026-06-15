@@ -5,6 +5,7 @@ import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import BrandLogo from "@modules/layout/components/brand-logo"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
@@ -16,29 +17,38 @@ export default async function Nav() {
   ])
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+    <div className="sticky top-0 inset-x-0 z-50">
+      <div className="bg-whet-900 text-whet-300 text-center text-xs py-2 tracking-wide hidden small:block">
+        Free enterprise shipping on orders over $150 &nbsp;·&nbsp; 24/7 dedicated support &nbsp;·&nbsp; Secure checkout
+      </div>
+      <header className="relative h-16 mx-auto border-b border-whet-800 bg-whet-950/95 backdrop-blur-md">
+        <nav className="content-container flex items-center justify-between w-full h-full text-sm">
+          <div className="flex-1 basis-0 h-full flex items-center gap-8">
+            <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+            <div className="hidden small:flex items-center gap-6">
+              <LocalizedClientLink
+                className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
+                href="/store"
+              >
+                Shop
+              </LocalizedClientLink>
+              <LocalizedClientLink
+                className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
+                href="/store"
+              >
+                Collections
+              </LocalizedClientLink>
             </div>
           </div>
 
           <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
-            >
-              Medusa Store
-            </LocalizedClientLink>
+            <BrandLogo variant="light" />
           </div>
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               <LocalizedClientLink
-                className="hover:text-ui-fg-base"
+                className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
                 href="/account"
                 data-testid="nav-account-link"
               >
@@ -48,7 +58,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
+                  className="text-whet-300 hover:text-gold-400 flex gap-2 text-xs font-medium uppercase tracking-wide"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

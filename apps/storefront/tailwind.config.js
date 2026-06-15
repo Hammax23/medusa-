@@ -20,6 +20,26 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        whet: {
+          50: "#f7f7f8",
+          100: "#ececf0",
+          200: "#d5d6de",
+          300: "#b0b2c0",
+          400: "#84879a",
+          500: "#66697f",
+          600: "#515468",
+          700: "#424455",
+          800: "#393b49",
+          900: "#1a1d2e",
+          950: "#0f1119",
+        },
+        gold: {
+          300: "#e8d48b",
+          400: "#d4b84a",
+          500: "#c9a227",
+          600: "#a88620",
+          700: "#87691a",
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
@@ -59,14 +79,18 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          "var(--font-dm-sans)",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
           "sans-serif",
+        ],
+        display: [
+          "var(--font-playfair)",
+          "Georgia",
+          "Times New Roman",
+          "serif",
         ],
       },
       keyframes: {
