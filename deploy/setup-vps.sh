@@ -17,7 +17,7 @@ sudo usermod -aG docker "$USER"
 echo "==> Installing PM2"
 sudo npm install -g pm2
 
-APP_DIR="${APP_DIR:-$HOME/medusa-}"
+APP_DIR="${APP_DIR:-/var/www/whetstonez}"
 
 if [ ! -d "$APP_DIR/.git" ]; then
   echo "==> Cloning repository"
