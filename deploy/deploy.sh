@@ -15,7 +15,14 @@ git checkout "$BRANCH"
 git pull origin "$BRANCH"
 
 echo "==> Start Whetstonez database only (isolated Docker project)"
-docker compose -p whetstonez -f deploy/docker-compose.yml --env-file deploy/.env up -d
+if docker compose version > /dev/null 2>&1; then
+  docker compose -p whetstonez -f deploy/docker-compose.yml --env-file deploy/.env up -d
+elif command -v docker-compose > /dev/null 2>&1; then
+  COMPOSE_PROJECT_NAME=whetstonez docker-compose -f deploy/docker-compose.yml --env-file deploy/.env up -d
+else
+  echo "ERROR: Docker Compose not found. Install: apt install docker-compose-plugin"
+  exit 1
+fi
 
 echo "==> Install dependencies"
 npm ci
