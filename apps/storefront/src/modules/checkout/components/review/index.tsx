@@ -21,29 +21,29 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
     (cart.payment_collection || paidByGiftcard)
 
   return (
-    <div className="bg-white">
+    <div className="bg-white rounded-2xl border border-plant-100 p-6">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row text-xl font-bold text-plant-900 gap-x-2 items-center",
             {
               "opacity-50 pointer-events-none select-none": !isOpen,
             }
           )}
         >
+          <span className="w-8 h-8 bg-plant-100 rounded-full flex items-center justify-center text-plant-600 text-sm font-bold">4</span>
           Review
         </Heading>
       </div>
       {isOpen && previousStepsCompleted && (
         <>
           <div className="flex items-start gap-x-1 w-full mb-6">
-            <div className="w-full">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+            <div className="w-full bg-plant-50 rounded-xl p-4">
+              <Text className="text-sm text-plant-700">
                 By clicking the Place Order button, you confirm that you have
                 read, understand and accept our Terms of Use, Terms of Sale and
-                Returns Policy and acknowledge that you have read Whetstonez
-                Ecommerce&apos;s Privacy Policy.
+                Returns Policy and acknowledge that you have read Bayt Al-Nabat&apos;s Privacy Policy.
               </Text>
             </div>
           </div>

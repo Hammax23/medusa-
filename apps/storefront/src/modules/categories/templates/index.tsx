@@ -42,33 +42,35 @@ export default function CategoryTemplate({
     <>
       <PageHeader
         label="Category"
+        labelAr="القسم"
         title={category.name}
         description={
           category.description ||
-          `Browse ${category.name} products in our enterprise catalog.`
+          `Browse ${category.name} plants and products in our collection.`
         }
+        descriptionAr={`تصفح منتجات ${category.name} في مجموعتنا`}
       />
       <div
-        className="flex flex-col small:flex-row small:items-start py-10 content-container bg-whet-50/30 min-h-[60vh]"
+        className="flex flex-col small:flex-row small:items-start py-10 content-container bg-plant-50/30 min-h-[60vh]"
         data-testid="category-container"
       >
         <RefinementList sortBy={sort} data-testid="sort-by-container" />
         <div className="w-full">
           {parentTrail.length > 0 && (
-            <nav className="mb-6 text-xs uppercase tracking-wide text-whet-500">
+            <nav className="mb-6 text-xs uppercase tracking-wide text-plant-500">
               {parentTrail.map((parent) => (
                 <span key={parent.id}>
                   <LocalizedClientLink
-                    className="hover:text-gold-600 transition-colors"
+                    className="hover:text-plant-600 transition-colors"
                     href={`/categories/${parent.handle}`}
                     data-testid="sort-by-link"
                   >
                     {parent.name}
                   </LocalizedClientLink>
-                  <span className="mx-2 text-whet-300">/</span>
+                  <span className="mx-2 text-plant-300">/</span>
                 </span>
               ))}
-              <span className="text-whet-900 font-medium">{category.name}</span>
+              <span className="text-plant-900 font-medium">{category.name}</span>
             </nav>
           )}
           {category.category_children && category.category_children.length > 0 && (
@@ -77,7 +79,7 @@ export default function CategoryTemplate({
                 <LocalizedClientLink
                   key={c.id}
                   href={`/categories/${c.handle}`}
-                  className="px-3 py-1.5 border border-whet-200 text-xs uppercase tracking-wide text-whet-600 hover:border-gold-500 hover:text-gold-600 transition-colors"
+                  className="px-3 py-1.5 bg-white border border-plant-200 rounded-lg text-xs uppercase tracking-wide text-plant-600 hover:border-plant-500 hover:text-plant-500 hover:bg-plant-50 transition-colors"
                 >
                   {c.name}
                 </LocalizedClientLink>

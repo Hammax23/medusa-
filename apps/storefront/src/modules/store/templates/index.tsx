@@ -22,12 +22,15 @@ const StoreTemplate = ({
   return (
     <>
       <PageHeader
-        label="Catalog"
-        title="All Products"
-        description="Browse our curated enterprise catalog — premium products with transparent pricing and reliable fulfillment."
+        label="Shop"
+        labelAr="تسوق"
+        title="All Plants"
+        titleAr="جميع النباتات"
+        description="Explore our complete collection of indoor plants, outdoor plants, succulents, and gardening supplies."
+        descriptionAr="استكشف مجموعتنا الكاملة من النباتات الداخلية والخارجية والصبار ومستلزمات الزراعة."
       />
       <div
-        className="flex flex-col small:flex-row small:items-start py-10 content-container bg-whet-50/30 min-h-[60vh]"
+        className="flex flex-col small:flex-row small:items-start py-10 content-container bg-plant-50/30 min-h-[60vh]"
         data-testid="category-container"
       >
         <RefinementList sortBy={sort} />

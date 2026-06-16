@@ -25,10 +25,12 @@ export default function CollectionTemplate({
     <>
       <PageHeader
         label="Collection"
+        labelAr="المجموعة"
         title={collection.title}
-        description="Curated products selected for quality, reliability, and enterprise procurement needs."
+        description="Curated plants and products selected for quality and freshness."
+        descriptionAr="نباتات ومنتجات مختارة بعناية للجودة والطزاجة"
       />
-      <div className="flex flex-col small:flex-row small:items-start py-10 content-container bg-whet-50/30 min-h-[60vh]">
+      <div className="flex flex-col small:flex-row small:items-start py-10 content-container bg-plant-50/30 min-h-[60vh]">
         <RefinementList sortBy={sort} />
         <div className="w-full">
           <Suspense
