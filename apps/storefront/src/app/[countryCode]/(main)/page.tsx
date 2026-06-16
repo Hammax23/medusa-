@@ -1,7 +1,9 @@
 import { Metadata } from "next"
 
 import CtaBanner from "@modules/home/components/cta-banner"
+import EnterpriseStrip from "@modules/home/components/enterprise-strip"
 import FeaturedProducts from "@modules/home/components/featured-products"
+import FeaturedProductsFallback from "@modules/home/components/featured-products/fallback"
 import Features from "@modules/home/components/features"
 import Hero from "@modules/home/components/hero"
 import TrustBar from "@modules/home/components/trust-bar"
@@ -32,6 +34,7 @@ export default async function Home(props: {
     <>
       <Hero />
       <TrustBar />
+      <EnterpriseStrip />
       <div className="bg-white">
         <div className="content-container pt-16 pb-4">
           <div className="text-center mb-4">
@@ -44,7 +47,14 @@ export default async function Home(props: {
           </div>
         </div>
         <ul className="flex flex-col">
-          <FeaturedProducts collections={collections} region={region} />
+          {collections.length > 0 ? (
+            <FeaturedProducts collections={collections} region={region} />
+          ) : (
+            <FeaturedProductsFallback
+              countryCode={countryCode}
+              region={region}
+            />
+          )}
         </ul>
       </div>
       <Features />

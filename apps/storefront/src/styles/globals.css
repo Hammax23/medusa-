@@ -55,7 +55,39 @@
   }
 
   .contrast-btn {
-    @apply px-4 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors duration-200 ease-in;
+    @apply px-4 py-2 border border-whet-900 text-whet-900 rounded-none hover:bg-whet-900 hover:text-white transition-colors duration-200 ease-in;
+  }
+
+  .enterprise-card {
+    @apply border border-whet-100 bg-white shadow-sm;
+  }
+
+  .enterprise-card-elevated {
+    @apply border border-whet-100 bg-white shadow-md shadow-whet-900/5;
+  }
+
+  .enterprise-section-label {
+    @apply text-gold-600 text-xs font-semibold tracking-[0.2em] uppercase;
+  }
+
+  .enterprise-page-header {
+    @apply bg-whet-950 border-b border-whet-800;
+  }
+
+  .enterprise-input {
+    @apply flex h-11 w-full border border-whet-200 bg-white px-4 py-2 text-sm text-whet-900 placeholder:text-whet-400 focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors;
+  }
+
+  .btn-enterprise-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gold-500 text-whet-950 font-semibold text-sm tracking-wide uppercase hover:bg-gold-400 transition-all duration-200 shadow-sm shadow-gold-500/20 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-enterprise-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-whet-300 text-whet-900 font-semibold text-sm tracking-wide uppercase hover:border-gold-500 hover:text-gold-600 transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-enterprise-ghost-light {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-whet-600 text-white font-semibold text-sm tracking-wide uppercase hover:border-gold-400 hover:text-gold-400 transition-colors duration-200;
   }
 
   .text-xsmall-regular {

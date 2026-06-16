@@ -82,14 +82,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={clsx(
-          "inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-          variant === "primary" && "bg-black text-white hover:bg-gray-800",
+          "inline-flex gap-2 items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          variant === "primary" &&
+            "bg-gold-500 text-whet-950 hover:bg-gold-400 shadow-sm shadow-gold-500/20",
           variant === "secondary" &&
-            "bg-white text-black border border-gray-200 hover:bg-gray-50",
-          variant === "transparent" && "bg-transparent hover:bg-gray-100",
-          size === "small" && "h-8 px-3 text-sm",
-          size === "medium" && "h-10 px-4",
-          size === "large" && "h-12 px-6 text-lg",
+            "bg-white text-whet-900 border border-whet-200 hover:border-gold-500 hover:text-gold-600",
+          variant === "transparent" &&
+            "bg-transparent text-whet-700 hover:bg-whet-50",
+          size === "small" && "h-9 px-4 text-xs tracking-wide uppercase",
+          size === "medium" && "h-11 px-5 text-sm",
+          size === "large" && "h-12 px-6 text-base",
           className
         )}
         {...props}
@@ -109,7 +111,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <div
         ref={ref}
-        className={clsx("bg-white rounded-lg p-4", className)}
+        className={clsx("enterprise-card p-6", className)}
         {...props}
       >
         {children}
@@ -221,7 +223,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={clsx(
-            "flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "enterprise-input",
             className
           )}
           {...props}

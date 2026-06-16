@@ -20,12 +20,12 @@ const Register = ({ setCurrentView }: Props) => {
       className="max-w-sm flex flex-col items-center"
       data-testid="register-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">
-        Become a Medusa Store Member
+      <h1 className="font-display text-2xl font-semibold text-whet-900 mb-4">
+        Create Business Account
       </h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Medusa Store Member profile, and get access to an enhanced
-        shopping experience.
+      <p className="text-center text-sm text-whet-500 mb-6 leading-relaxed">
+        Register for a Whetstonez account to manage orders, addresses, and
+        enterprise procurement in one place.
       </p>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
@@ -68,8 +68,8 @@ const Register = ({ setCurrentView }: Props) => {
           />
         </div>
         <ErrorMessage error={message} data-testid="register-error" />
-        <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to Medusa Store&apos;s{" "}
+        <span className="text-center text-whet-500 text-xs mt-6">
+          By creating an account, you agree to Whetstonez&apos;s{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
             className="underline"

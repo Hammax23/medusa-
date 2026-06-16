@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import InteractiveLink from "@modules/common/components/interactive-link"
+import PageHeader from "@modules/common/components/page-header"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -36,62 +36,70 @@ export default function CategoryTemplate({
 
   getParents(category)
 
+  const parentTrail = [...parents].reverse()
+
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
-      data-testid="category-container"
-    >
-      <RefinementList sortBy={sort} data-testid="sort-by-container" />
-      <div className="w-full">
-        <div className="flex flex-row mb-8 text-2xl-semi gap-4">
-          {parents &&
-            parents.map((parent) => (
-              <span key={parent.id} className="text-ui-fg-subtle">
-                <LocalizedClientLink
-                  className="mr-4 hover:text-black"
-                  href={`/categories/${parent.handle}`}
-                  data-testid="sort-by-link"
-                >
-                  {parent.name}
-                </LocalizedClientLink>
-                /
-              </span>
-            ))}
-          <h1 data-testid="category-page-title">{category.name}</h1>
-        </div>
-        {category.description && (
-          <div className="mb-8 text-base-regular">
-            <p>{category.description}</p>
-          </div>
-        )}
-        {category.category_children && (
-          <div className="mb-8 text-base-large">
-            <ul className="grid grid-cols-1 gap-2">
-              {category.category_children?.map((c) => (
-                <li key={c.id}>
-                  <InteractiveLink href={`/categories/${c.handle}`}>
-                    {c.name}
-                  </InteractiveLink>
-                </li>
+    <>
+      <PageHeader
+        label="Category"
+        title={category.name}
+        description={
+          category.description ||
+          `Browse ${category.name} products in our enterprise catalog.`
+        }
+      />
+      <div
+        className="flex flex-col small:flex-row small:items-start py-10 content-container bg-whet-50/30 min-h-[60vh]"
+        data-testid="category-container"
+      >
+        <RefinementList sortBy={sort} data-testid="sort-by-container" />
+        <div className="w-full">
+          {parentTrail.length > 0 && (
+            <nav className="mb-6 text-xs uppercase tracking-wide text-whet-500">
+              {parentTrail.map((parent) => (
+                <span key={parent.id}>
+                  <LocalizedClientLink
+                    className="hover:text-gold-600 transition-colors"
+                    href={`/categories/${parent.handle}`}
+                    data-testid="sort-by-link"
+                  >
+                    {parent.name}
+                  </LocalizedClientLink>
+                  <span className="mx-2 text-whet-300">/</span>
+                </span>
               ))}
-            </ul>
-          </div>
-        )}
-        <Suspense
-          fallback={
-            <SkeletonProductGrid
-              numberOfProducts={category.products?.length ?? 8}
+              <span className="text-whet-900 font-medium">{category.name}</span>
+            </nav>
+          )}
+          {category.category_children && category.category_children.length > 0 && (
+            <div className="mb-8 flex flex-wrap gap-2">
+              {category.category_children.map((c) => (
+                <LocalizedClientLink
+                  key={c.id}
+                  href={`/categories/${c.handle}`}
+                  className="px-3 py-1.5 border border-whet-200 text-xs uppercase tracking-wide text-whet-600 hover:border-gold-500 hover:text-gold-600 transition-colors"
+                >
+                  {c.name}
+                </LocalizedClientLink>
+              ))}
+            </div>
+          )}
+          <Suspense
+            fallback={
+              <SkeletonProductGrid
+                numberOfProducts={category.products?.length ?? 8}
+              />
+            }
+          >
+            <PaginatedProducts
+              sortBy={sort}
+              page={pageNumber}
+              categoryId={category.id}
+              countryCode={countryCode}
             />
-          }
-        >
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            categoryId={category.id}
-            countryCode={countryCode}
-          />
-        </Suspense>
+          </Suspense>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

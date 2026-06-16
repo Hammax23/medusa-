@@ -30,13 +30,13 @@ export default async function Nav() {
                 className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
                 href="/store"
               >
-                Shop
+                Catalog
               </LocalizedClientLink>
               <LocalizedClientLink
                 className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
-                href="/store"
+                href="/account"
               >
-                Collections
+                Enterprise
               </LocalizedClientLink>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Account
+                Business Account
               </LocalizedClientLink>
             </div>
             <Suspense

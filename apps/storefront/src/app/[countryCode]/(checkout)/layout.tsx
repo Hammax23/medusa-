@@ -1,6 +1,6 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import BrandLogo from "@modules/layout/components/brand-logo"
 import ChevronDown from "@modules/common/icons/chevron-down"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
 
 export default function CheckoutLayout({
   children,
@@ -8,35 +8,33 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-full bg-white relative small:min-h-screen">
-      <div className="h-16 bg-white border-b ">
+    <div className="w-full bg-whet-50 min-h-screen relative">
+      <div className="h-16 bg-whet-950 border-b border-whet-800">
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
-            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase flex-1 basis-0"
+            className="text-xs font-medium text-whet-300 hover:text-gold-400 flex items-center gap-x-2 uppercase tracking-wide flex-1 basis-0 transition-colors"
             data-testid="back-to-cart-link"
           >
-            <ChevronDown className="rotate-90" size={16} />
-            <span className="mt-px hidden small:block txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base ">
-              Back to shopping cart
-            </span>
-            <span className="mt-px block small:hidden txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base">
-              Back
-            </span>
+            <ChevronDown className="rotate-90 text-gold-500" size={16} />
+            <span className="hidden small:block">Back to cart</span>
+            <span className="block small:hidden">Back</span>
           </LocalizedClientLink>
-          <LocalizedClientLink
-            href="/"
-            className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            data-testid="store-link"
-          >
-            Medusa Store
-          </LocalizedClientLink>
-          <div className="flex-1 basis-0" />
+          <BrandLogo variant="light" />
+          <div className="flex-1 basis-0 flex justify-end">
+            <span className="text-[10px] uppercase tracking-widest text-whet-500 hidden small:block">
+              Secure Checkout
+            </span>
+          </div>
         </nav>
       </div>
-      <div className="relative" data-testid="checkout-container">{children}</div>
-      <div className="py-4 w-full flex items-center justify-center">
-        <MedusaCTA />
+      <div className="relative py-8 small:py-12" data-testid="checkout-container">
+        {children}
+      </div>
+      <div className="py-6 border-t border-whet-200 bg-white">
+        <p className="text-center text-xs text-whet-400 tracking-wide">
+          © {new Date().getFullYear()} Whetstonez Ecommerce · Encrypted & secure payments
+        </p>
       </div>
     </div>
   )

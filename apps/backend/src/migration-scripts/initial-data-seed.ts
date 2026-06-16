@@ -296,6 +296,28 @@ export default async function initial_data_seed({
 
   logger.info("Seeding product data...");
 
+  const { result: collectionResult } = await createCollectionsWorkflow(
+    container
+  ).run({
+    input: {
+      collections: [
+        {
+          title: "Apparel",
+          handle: "apparel",
+        },
+        {
+          title: "Essentials",
+          handle: "essentials",
+        },
+      ],
+    },
+  });
+
+  const apparelCollection = collectionResult.find((c) => c.handle === "apparel")!
+  const essentialsCollection = collectionResult.find(
+    (c) => c.handle === "essentials"
+  )!
+
   const { result: categoryResult } = await createProductCategoriesWorkflow(
     container
   ).run({
@@ -326,6 +348,7 @@ export default async function initial_data_seed({
       products: [
         {
           title: "Medusa T-Shirt",
+          collection_id: apparelCollection.id,
           category_ids: [
             categoryResult.find((cat) => cat.name === "Shirts")!.id,
           ],
@@ -513,6 +536,7 @@ export default async function initial_data_seed({
         },
         {
           title: "Medusa Sweatshirt",
+          collection_id: apparelCollection.id,
           category_ids: [
             categoryResult.find((cat) => cat.name === "Sweatshirts")!.id,
           ],
@@ -614,6 +638,7 @@ export default async function initial_data_seed({
         },
         {
           title: "Medusa Sweatpants",
+          collection_id: essentialsCollection.id,
           category_ids: [
             categoryResult.find((cat) => cat.name === "Pants")!.id,
           ],
@@ -715,6 +740,7 @@ export default async function initial_data_seed({
         },
         {
           title: "Medusa Shorts",
+          collection_id: essentialsCollection.id,
           category_ids: [
             categoryResult.find((cat) => cat.name === "Merch")!.id,
           ],

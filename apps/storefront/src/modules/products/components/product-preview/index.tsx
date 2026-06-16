@@ -14,37 +14,39 @@ export default async function ProductPreview({
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
   const { cheapestPrice } = getProductPrice({
     product,
   })
 
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div data-testid="product-wrapper">
+    <LocalizedClientLink href={`/products/${product.handle}`} className="group block">
+      <article data-testid="product-wrapper" className="h-full">
         <Thumbnail
           thumbnail={product.thumbnail}
           images={product.images}
           size="full"
           isFeatured={isFeatured}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
-            {product.title}
-          </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+        <div className="mt-5 space-y-2">
+          {product.collection && (
+            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-600">
+              {product.collection.title}
+            </p>
+          )}
+          <div className="flex items-start justify-between gap-3">
+            <Text
+              className="text-sm font-medium text-whet-900 group-hover:text-gold-600 transition-colors line-clamp-2"
+              data-testid="product-title"
+            >
+              {product.title}
+            </Text>
+            <div className="shrink-0">
+              {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+            </div>
           </div>
+          <div className="h-px w-0 bg-gold-500 group-hover:w-full transition-all duration-300" />
         </div>
-      </div>
+      </article>
     </LocalizedClientLink>
   )
 }

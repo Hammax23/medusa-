@@ -2,7 +2,7 @@ import { listProducts } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
 import { Text } from "@modules/common/components/ui"
 
-import InteractiveLink from "@modules/common/components/interactive-link"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ProductPreview from "@modules/products/components/product-preview"
 
 export default async function ProductRail({
@@ -22,7 +22,7 @@ export default async function ProductRail({
     },
   })
 
-  if (!pricedProducts) {
+  if (!pricedProducts?.length) {
     return null
   }
 
@@ -37,12 +37,12 @@ export default async function ProductRail({
             {collection.title}
           </Text>
         </div>
-        <InteractiveLink
+        <LocalizedClientLink
           href={`/collections/${collection.handle}`}
           className="text-sm font-medium text-whet-600 hover:text-gold-600 uppercase tracking-wide transition-colors"
         >
           View all →
-        </InteractiveLink>
+        </LocalizedClientLink>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-12 small:gap-y-16">
         {pricedProducts &&

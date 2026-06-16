@@ -88,11 +88,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${product.title} | Medusa Store`,
-    description: `${product.title}`,
+    title: `${product.title} | Whetstonez Ecommerce`,
+    description: product.description || `${product.title} — available at Whetstonez Ecommerce.`,
     openGraph: {
-      title: `${product.title} | Medusa Store`,
-      description: `${product.title}`,
+      title: `${product.title} | Whetstonez Ecommerce`,
+      description:
+        product.description ||
+        `${product.title} — available at Whetstonez Ecommerce.`,
       images: product.thumbnail ? [product.thumbnail] : [],
     },
   }

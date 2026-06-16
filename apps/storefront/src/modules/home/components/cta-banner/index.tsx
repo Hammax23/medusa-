@@ -19,15 +19,12 @@ const CtaBanner = () => {
           teams of any size.
         </p>
         <div className="mt-10 flex flex-col small:flex-row gap-4 justify-center">
-          <LocalizedClientLink
-            href="/store"
-            className="inline-flex items-center justify-center px-8 py-3.5 bg-gold-500 text-whet-950 font-semibold text-sm tracking-wide uppercase hover:bg-gold-400 transition-colors duration-200"
-          >
+          <LocalizedClientLink href="/store" className="btn-enterprise-primary">
             Browse Catalog
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/account"
-            className="inline-flex items-center justify-center px-8 py-3.5 border border-whet-600 text-white font-semibold text-sm tracking-wide uppercase hover:border-gold-400 hover:text-gold-400 transition-colors duration-200"
+            className="btn-enterprise-ghost-light"
           >
             Business Account
           </LocalizedClientLink>

@@ -17,9 +17,11 @@ const Login = ({ setCurrentView }: Props) => {
       className="max-w-sm w-full flex flex-col items-center"
       data-testid="login-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
+      <h1 className="font-display text-2xl font-semibold text-whet-900 mb-3">
+        Welcome back
+      </h1>
+      <p className="text-center text-sm text-whet-500 mb-8 leading-relaxed">
+        Sign in to your Whetstonez business account to manage orders and procurement.
       </p>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">

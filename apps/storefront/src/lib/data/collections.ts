@@ -36,7 +36,8 @@ export const listCollections = async (
       {
         query: queryParams,
         next,
-        cache: "force-cache",
+        cache:
+          process.env.NODE_ENV === "development" ? "no-store" : "force-cache",
       }
     )
     .then(({ collections }) => ({ collections, count: collections.length }))
