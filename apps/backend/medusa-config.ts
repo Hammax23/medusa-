@@ -1,4 +1,4 @@
-import { loadEnv, defineConfig } from '@medusajs/framework/utils'
+import { loadEnv, defineConfig, Modules } from '@medusajs/framework/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
@@ -13,5 +13,23 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
-  }
+  },
+  modules: {
+    [Modules.PAYMENT]: {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/moyasar",
+            id: "moyasar",
+            options: {
+              apiKey: process.env.MOYASAR_API_KEY,
+              publishableKey: process.env.MOYASAR_PUBLISHABLE_KEY,
+              webhookSecret: process.env.MOYASAR_WEBHOOK_SECRET,
+            },
+          },
+        ],
+      },
+    },
+  },
 })

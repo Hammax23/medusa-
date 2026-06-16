@@ -1,12 +1,13 @@
 "use client"
 import { RadioGroup } from "@headlessui/react"
-import { isStripeLike, paymentInfoMap } from "@lib/constants"
+import { isStripeLike, isMoyasar, paymentInfoMap } from "@lib/constants"
 import { initiatePaymentSession } from "@lib/data/cart"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import PaymentContainer, {
   StripeCardContainer,
 } from "@modules/checkout/components/payment-container"
+import MoyasarPayment from "@modules/checkout/components/moyasar-payment"
 import Divider from "@modules/common/components/divider"
 import {
   Button,
@@ -47,7 +48,7 @@ const Payment = ({
   const setPaymentMethod = async (method: string) => {
     setError(null)
     setSelectedPaymentMethod(method)
-    if (isStripeLike(method)) {
+    if (isStripeLike(method) || isMoyasar(method)) {
       await initiatePaymentSession(cart, {
         provider_id: method,
       })
@@ -111,6 +112,39 @@ const Payment = ({
     setError(null)
   }, [isOpen])
 
+  // Handle Moyasar payment callback
+  useEffect(() => {
+    const paymentStatus = searchParams.get("payment_status")
+    const moyasarId = searchParams.get("id")
+    const moyasarStatus = searchParams.get("status")
+    
+    console.log("Moyasar callback check:", { paymentStatus, moyasarId, moyasarStatus })
+    
+    // Check if payment was successful (status can be "paid" or check our custom payment_status)
+    if (paymentStatus === "success" && moyasarId) {
+      // Moyasar payment was successful, initiate payment session
+      const initMoyasarSession = async () => {
+        setIsLoading(true)
+        try {
+          await initiatePaymentSession(cart, {
+            provider_id: "pp_moyasar_moyasar",
+            data: {
+              moyasar_payment_id: moyasarId,
+            },
+          })
+          // Redirect to review step after successful payment session
+          router.push(pathname + "?step=review", { scroll: false })
+        } catch (err) {
+          setError("Payment session failed. Please try again.")
+          console.error("Moyasar session error:", err)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+      initMoyasarSession()
+    }
+  }, [searchParams, cart, pathname, router])
+
   return (
     <div className="bg-white rounded-2xl border border-plant-100 p-6">
       <div className="flex flex-row items-center justify-between mb-6">
@@ -158,6 +192,13 @@ const Payment = ({
                         setCardBrand={setCardBrand}
                         setError={setError}
                         setCardComplete={setCardComplete}
+                      />
+                    ) : isMoyasar(paymentMethod.id) ? (
+                      <MoyasarPayment
+                        cart={cart}
+                        publishableKey={process.env.NEXT_PUBLIC_MOYASAR_PUBLISHABLE_KEY || ""}
+                        isSelected={selectedPaymentMethod === paymentMethod.id}
+                        onSelect={() => setPaymentMethod(paymentMethod.id)}
                       />
                     ) : (
                       <PaymentContainer

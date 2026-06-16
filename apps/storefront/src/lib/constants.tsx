@@ -33,7 +33,10 @@ export const paymentInfoMap: Record<
     title: "Manual Payment",
     icon: <CreditCard />,
   },
-  // Add more payment providers here
+  pp_moyasar_moyasar: {
+    title: "Moyasar",
+    icon: <CreditCard />,
+  },
 }
 
 // This only checks if it is native stripe or medusa payments for card payments, it ignores the other stripe-based providers
@@ -48,6 +51,10 @@ export const isPaypal = (providerId?: string) => {
 }
 export const isManual = (providerId?: string) => {
   return providerId?.startsWith("pp_system_default")
+}
+
+export const isMoyasar = (providerId?: string) => {
+  return providerId?.startsWith("pp_moyasar")
 }
 
 // Add currencies that don't need to be divided by 100

@@ -24,7 +24,7 @@ import { getLocale } from "./locale-actions"
 export async function retrieveCart(cartId?: string, fields?: string) {
   const id = cartId || (await getCartId())
   fields ??=
-    "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
+    "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name, +total, +subtotal, +shipping_total, +tax_total"
 
   if (!id) {
     return null
@@ -398,18 +398,53 @@ export async function placeOrder(cartId?: string) {
     throw new Error("No existing cart found when placing an order")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
+  const authHeaders = await getAuthHeaders()
+
+  console.log("placeOrder: completing cart", id)
+
+  // Use direct fetch with timeout instead of SDK to avoid hanging
+  const MEDUSA_BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000"
+  const publishableKey = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
+
+  let cartRes: any
+
+  try {
+    const response = await fetch(`${MEDUSA_BACKEND_URL}/store/carts/${id}/complete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-publishable-api-key": publishableKey,
+        ...authHeaders,
+      },
+      signal: controller.signal,
+    })
+
+    clearTimeout(timeoutId)
+
+    const data = await response.json()
+    console.log("placeOrder: response status:", response.status, "type:", data?.type)
+
+    if (!response.ok) {
+      console.error("placeOrder: API error:", JSON.stringify(data))
+      throw new Error(data?.message || `Order failed with status ${response.status}`)
+    }
+
+    cartRes = data
+  } catch (error: any) {
+    clearTimeout(timeoutId)
+    if (error.name === "AbortError") {
+      console.error("placeOrder: Request timed out after 30 seconds")
+      throw new Error("Order request timed out. Please try again.")
+    }
+    console.error("placeOrder: error:", error?.message || error)
+    throw new Error(error?.message || "Failed to complete order")
   }
 
-  const cartRes = await sdk.store.cart
-    .complete(id, {}, headers)
-    .then(async (cartRes) => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-      return cartRes
-    })
-    .catch(medusaError)
+  const cartCacheTag = await getCacheTag("carts")
+  revalidateTag(cartCacheTag)
 
   if (cartRes?.type === "order") {
     const countryCode =
@@ -422,7 +457,7 @@ export async function placeOrder(cartId?: string) {
     redirect(`/${countryCode}/order/${cartRes?.order.id}/confirmed`)
   }
 
-  return cartRes.cart
+  return cartRes?.cart
 }
 
 /**

@@ -26,8 +26,12 @@ export default async function Home(props: {
     fields: "id, handle, title",
   })
 
-  if (!collections || !region) {
-    return null
+  if (!region) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-plant-600">Region not found. Please check your Medusa Admin settings.</p>
+      </div>
+    )
   }
 
   return (
@@ -42,7 +46,7 @@ export default async function Home(props: {
       <div className="bg-plant-50 py-20">
         <div className="content-container">
           <ul className="flex flex-col">
-            {collections.length > 0 ? (
+            {collections && collections.length > 0 ? (
               <FeaturedProducts collections={collections} region={region} />
             ) : (
               <FeaturedProductsFallback

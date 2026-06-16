@@ -76,7 +76,7 @@ export const setCartId = async (cartId: string) => {
   cookies.set("_medusa_cart_id", cartId, {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax", // Use "lax" to allow cookies on external redirects (e.g., Moyasar payment callback)
     secure: process.env.NODE_ENV === "production",
   })
 }
