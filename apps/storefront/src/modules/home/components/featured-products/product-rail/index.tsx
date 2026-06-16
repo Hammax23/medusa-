@@ -27,24 +27,27 @@ export default async function ProductRail({
   }
 
   return (
-    <div className="content-container py-12 small:py-16">
-      <div className="flex justify-between items-end mb-10 border-b border-whet-100 pb-6">
+    <div className="py-12 small:py-16">
+      <div className="flex justify-between items-end mb-10 border-b border-plant-200 pb-6">
         <div>
-          <p className="text-xs font-semibold tracking-[0.15em] uppercase text-gold-600 mb-1">
-            Collection
+          <p className="text-xs font-semibold tracking-[0.15em] uppercase text-plant-500 mb-1">
+            🌿 Collection
           </p>
-          <Text className="font-display text-2xl small:text-3xl text-whet-900 font-semibold">
+          <Text className="font-display text-2xl small:text-3xl text-plant-900 font-semibold">
             {collection.title}
           </Text>
         </div>
         <LocalizedClientLink
           href={`/collections/${collection.handle}`}
-          className="text-sm font-medium text-whet-600 hover:text-gold-600 uppercase tracking-wide transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-medium text-plant-600 hover:text-plant-500 transition-colors"
         >
-          View all →
+          <span>View all</span>
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </LocalizedClientLink>
       </div>
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-12 small:gap-y-16">
+      <ul className="grid grid-cols-2 small:grid-cols-3 large:grid-cols-4 gap-x-6 gap-y-12 small:gap-y-16">
         {pricedProducts &&
           pricedProducts.map((product) => (
             <li key={product.id}>

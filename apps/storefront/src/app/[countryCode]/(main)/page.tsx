@@ -1,19 +1,19 @@
 import { Metadata } from "next"
 
-import CtaBanner from "@modules/home/components/cta-banner"
-import EnterpriseStrip from "@modules/home/components/enterprise-strip"
+import Hero from "@modules/home/components/hero"
+import CategoriesShowcase from "@modules/home/components/categories-showcase"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import FeaturedProductsFallback from "@modules/home/components/featured-products/fallback"
-import Features from "@modules/home/components/features"
-import Hero from "@modules/home/components/hero"
-import TrustBar from "@modules/home/components/trust-bar"
+import BenefitsSection from "@modules/home/components/benefits-section"
+import TestimonialsSection from "@modules/home/components/testimonials-section"
+import NewsletterSection from "@modules/home/components/newsletter-section"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Whetstonez Ecommerce — precision-crafted commerce for modern enterprise. Shop premium products with enterprise-grade reliability.",
+    "Bayt Al-Nabat — Premium plant store in Saudi Arabia. Shop indoor plants, outdoor plants, succulents, and gardening supplies with fresh delivery guarantee.",
 }
 
 export default async function Home(props: {
@@ -32,33 +32,36 @@ export default async function Home(props: {
 
   return (
     <>
+      {/* Hero Section with Video Background */}
       <Hero />
-      <TrustBar />
-      <EnterpriseStrip />
-      <div className="bg-white">
-        <div className="content-container pt-16 pb-4">
-          <div className="text-center mb-4">
-            <p className="text-gold-600 text-sm font-semibold tracking-[0.2em] uppercase mb-3">
-              Featured
-            </p>
-            <h2 className="font-display text-3xl small:text-4xl text-whet-900 font-semibold">
-              Our Collections
-            </h2>
-          </div>
+      
+      {/* Categories Showcase */}
+      <CategoriesShowcase />
+      
+      {/* Featured Products */}
+      <div className="bg-plant-50 py-20">
+        <div className="content-container">
+          <ul className="flex flex-col">
+            {collections.length > 0 ? (
+              <FeaturedProducts collections={collections} region={region} />
+            ) : (
+              <FeaturedProductsFallback
+                countryCode={countryCode}
+                region={region}
+              />
+            )}
+          </ul>
         </div>
-        <ul className="flex flex-col">
-          {collections.length > 0 ? (
-            <FeaturedProducts collections={collections} region={region} />
-          ) : (
-            <FeaturedProductsFallback
-              countryCode={countryCode}
-              region={region}
-            />
-          )}
-        </ul>
       </div>
-      <Features />
-      <CtaBanner />
+      
+      {/* Benefits Section */}
+      <BenefitsSection />
+      
+      {/* Testimonials */}
+      <TestimonialsSection />
+      
+      {/* Newsletter */}
+      <NewsletterSection />
     </>
   )
 }
