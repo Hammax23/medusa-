@@ -20,6 +20,33 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        // Plant Store Theme Colors
+        plant: {
+          50: "#f0fdf4",
+          100: "#dcfce7",
+          200: "#bbf7d0",
+          300: "#86efac",
+          400: "#4ade80",
+          500: "#22c55e",
+          600: "#16a34a",
+          700: "#15803d",
+          800: "#166534",
+          900: "#14532d",
+          950: "#052e16",
+        },
+        sand: {
+          50: "#fdfcfb",
+          100: "#f5f0e8",
+          200: "#e8dfd3",
+          300: "#d4c4ae",
+          400: "#bfa888",
+          500: "#a68c65",
+          600: "#8a7353",
+          700: "#6e5c44",
+          800: "#5a4c3a",
+          900: "#4a3f31",
+          950: "#2a2319",
+        },
         whet: {
           50: "#f7f7f8",
           100: "#ececf0",

@@ -8,6 +8,11 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import BrandLogo from "@modules/layout/components/brand-logo"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
+import NavSearch from "@modules/layout/components/nav-search"
+import MegaMenu from "@modules/layout/components/mega-menu"
+import LanguageToggle from "@modules/layout/components/language-toggle"
+import AnnouncementBar from "@modules/layout/components/announcement-bar"
+import NavLinks from "@modules/layout/components/nav-links"
 
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
@@ -18,51 +23,57 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50">
-      <div className="bg-whet-900 text-whet-300 text-center text-xs py-2 tracking-wide hidden small:block">
-        Free enterprise shipping on orders over $150 &nbsp;·&nbsp; 24/7 dedicated support &nbsp;·&nbsp; Secure checkout
-      </div>
-      <header className="relative h-16 mx-auto border-b border-whet-800 bg-whet-950/95 backdrop-blur-md">
+      {/* Top Announcement Bar */}
+      <AnnouncementBar />
+
+      {/* Main Navigation */}
+      <header className="relative h-20 mx-auto border-b border-plant-100 bg-white shadow-sm">
         <nav className="content-container flex items-center justify-between w-full h-full text-sm">
-          <div className="flex-1 basis-0 h-full flex items-center gap-8">
-            <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
-            <div className="hidden small:flex items-center gap-6">
-              <LocalizedClientLink
-                className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
-                href="/store"
-              >
-                Catalog
-              </LocalizedClientLink>
-              <LocalizedClientLink
-                className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
-                href="/account"
-              >
-                Enterprise
-              </LocalizedClientLink>
+          {/* Left: Mobile Menu + Logo */}
+          <div className="flex items-center gap-6 h-full">
+            <div className="small:hidden">
+              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
             </div>
+            <BrandLogo variant="dark" />
           </div>
 
-          <div className="flex items-center h-full">
-            <BrandLogo variant="light" />
+          {/* Center: Navigation Links with Mega Menu */}
+          <div className="hidden small:flex items-center gap-1 h-full">
+            <MegaMenu />
+            <NavLinks />
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="text-whet-300 hover:text-gold-400 transition-colors tracking-wide uppercase text-xs font-medium"
-                href="/account"
-                data-testid="nav-account-link"
-              >
-                Business Account
-              </LocalizedClientLink>
-            </div>
+          {/* Right: Language Toggle, Search, Account, Cart */}
+          <div className="flex items-center gap-3 h-full">
+            {/* Language Toggle */}
+            <LanguageToggle />
+
+            {/* Search */}
+            <NavSearch />
+
+            {/* Account */}
+            <LocalizedClientLink
+              className="hidden small:flex items-center gap-2 px-3 py-2 text-plant-700 hover:text-plant-600 hover:bg-plant-50 rounded-lg transition-all"
+              href="/account"
+              data-testid="nav-account-link"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </LocalizedClientLink>
+
+            {/* Cart */}
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="text-whet-300 hover:text-gold-400 flex gap-2 text-xs font-medium uppercase tracking-wide"
+                  className="flex items-center gap-2 px-3 py-2 bg-plant-600 text-white hover:bg-plant-500 rounded-lg transition-all"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
+                  <span className="text-sm font-medium">0</span>
                 </LocalizedClientLink>
               }
             >

@@ -82,10 +82,15 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="flex items-center gap-2 px-3 py-2 bg-plant-600 text-white hover:bg-plant-500 rounded-lg transition-all"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span className="text-sm font-medium">{totalItems}</span>
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}
@@ -99,11 +104,12 @@ const CartDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border border-plant-200 rounded-xl shadow-xl w-[420px] text-plant-900"
             data-testid="nav-cart-dropdown"
           >
-            <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+            <div className="p-4 flex items-center justify-between border-b border-plant-100">
+              <span className="text-sm text-plant-500">{totalItems} منتجات</span>
+              <h3 className="text-lg font-bold text-plant-800">سلة التسوق</h3>
             </div>
             {cartState && cartState.items?.length ? (
               <>
@@ -150,8 +156,9 @@ const CartDropdown = ({
                                 <span
                                   data-testid="cart-item-quantity"
                                   data-value={item.quantity}
+                                  className="text-plant-500 text-sm"
                                 >
-                                  Quantity: {item.quantity}
+                                  الكمية: {item.quantity}
                                 </span>
                               </div>
                               <div className="flex justify-end">
@@ -165,20 +172,20 @@ const CartDropdown = ({
                           </div>
                           <DeleteButton
                             id={item.id}
-                            className="mt-1"
+                            className="mt-1 text-red-500 hover:text-red-600 text-sm"
                             data-testid="cart-item-remove-button"
                           >
-                            Remove
+                            إزالة
                           </DeleteButton>
                         </div>
                       </div>
                     ))}
                 </div>
-                <div className="p-4 flex flex-col gap-y-4 text-small-regular">
+                <div className="p-4 flex flex-col gap-y-4 text-small-regular border-t border-plant-100">
                   <div className="flex items-center justify-between">
-                    <span className="text-ui-fg-base font-semibold">
-                      Subtotal{" "}
-                      <span className="font-normal">(excl. taxes)</span>
+                    <span className="text-plant-800 font-semibold">
+                      المجموع الفرعي{" "}
+                      <span className="font-normal text-plant-500">(بدون الضريبة)</span>
                     </span>
                     <span
                       className="text-large-semi"
@@ -193,11 +200,11 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button
-                      className="w-full"
+                      className="w-full bg-plant-600 hover:bg-plant-500 text-white"
                       size="large"
                       data-testid="go-to-cart-button"
                     >
-                      Go to cart
+                      عرض السلة
                     </Button>
                   </LocalizedClientLink>
                 </div>
@@ -205,15 +212,18 @@ const CartDropdown = ({
             ) : (
               <div>
                 <div className="flex py-16 flex-col gap-y-4 items-center justify-center">
-                  <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
-                    <span>0</span>
+                  <div className="w-16 h-16 bg-plant-100 rounded-full flex items-center justify-center">
+                    <svg className="w-8 h-8 text-plant-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
                   </div>
-                  <span>Your shopping bag is empty.</span>
+                  <span className="text-plant-600 font-medium">سلة التسوق فارغة</span>
+                  <p className="text-plant-400 text-sm">ابدأ بإضافة نباتاتك المفضلة</p>
                   <div>
                     <LocalizedClientLink href="/store">
                       <>
                         <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
+                        <Button onClick={close} className="bg-plant-600 hover:bg-plant-500 text-white">تصفح النباتات</Button>
                       </>
                     </LocalizedClientLink>
                   </div>
